@@ -9,19 +9,21 @@
 /* Begin PBXBuildFile section */
 		2D5A811023A1E7C0002A8010 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A810F23A1E7C0002A8010 /* AppDelegate.swift */; };
 		2D5A811223A1E7C0002A8010 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A811123A1E7C0002A8010 /* SceneDelegate.swift */; };
-		2D5A811423A1E7C0002A8010 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A811323A1E7C0002A8010 /* ViewController.swift */; };
 		2D5A811923A1E7C1002A8010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A811823A1E7C1002A8010 /* Assets.xcassets */; };
 		2D5A811C23A1E7C1002A8010 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A811A23A1E7C1002A8010 /* LaunchScreen.storyboard */; };
+		2D649B1923A1EE62009E0139 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D649B1823A1EE62009E0139 /* AssetsViewController.swift */; };
+		2D649B1B23A1EEE9009E0139 /* AssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D649B1A23A1EEE9009E0139 /* AssetCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2D5A810C23A1E7C0002A8010 /* CryptoBuzz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoBuzz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5A810F23A1E7C0002A8010 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D5A811123A1E7C0002A8010 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2D5A811323A1E7C0002A8010 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2D5A811823A1E7C1002A8010 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D5A811B23A1E7C1002A8010 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D5A811D23A1E7C1002A8010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D649B1823A1EE62009E0139 /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
+		2D649B1A23A1EEE9009E0139 /* AssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +58,37 @@
 			children = (
 				2D5A810F23A1E7C0002A8010 /* AppDelegate.swift */,
 				2D5A811123A1E7C0002A8010 /* SceneDelegate.swift */,
-				2D5A811323A1E7C0002A8010 /* ViewController.swift */,
+				2D649B1623A1EE37009E0139 /* View */,
+				2D649B1523A1EE2B009E0139 /* Modal */,
+				2D649B1723A1EE3D009E0139 /* Controller */,
 				2D5A811823A1E7C1002A8010 /* Assets.xcassets */,
 				2D5A811A23A1E7C1002A8010 /* LaunchScreen.storyboard */,
 				2D5A811D23A1E7C1002A8010 /* Info.plist */,
 			);
 			path = CryptoBuzz;
+			sourceTree = "<group>";
+		};
+		2D649B1523A1EE2B009E0139 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
+		2D649B1623A1EE37009E0139 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2D649B1A23A1EEE9009E0139 /* AssetCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D649B1723A1EE3D009E0139 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2D649B1823A1EE62009E0139 /* AssetsViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,9 +161,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D5A811423A1E7C0002A8010 /* ViewController.swift in Sources */,
 				2D5A811023A1E7C0002A8010 /* AppDelegate.swift in Sources */,
 				2D5A811223A1E7C0002A8010 /* SceneDelegate.swift in Sources */,
+				2D649B1B23A1EEE9009E0139 /* AssetCell.swift in Sources */,
+				2D649B1923A1EE62009E0139 /* AssetsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +303,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 59S6RTNR57;
 				INFOPLIST_FILE = CryptoBuzz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -293,6 +322,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 59S6RTNR57;
 				INFOPLIST_FILE = CryptoBuzz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
