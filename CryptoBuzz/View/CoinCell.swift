@@ -9,9 +9,9 @@
 import UIKit
 import SVGKit
 
-class AssetCell: UITableViewCell {
+class CoinCell: UITableViewCell {
     
-    let assetImageView = SVGKFastImageView(frame: .zero)
+    let coinImageView = SVGKFastImageView(frame: .zero)
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
     let priceLabel = UILabel()
@@ -33,18 +33,18 @@ class AssetCell: UITableViewCell {
     }
     
     private func setupAssetImageView() {
-        addSubview(assetImageView)
+        addSubview(coinImageView)
         
-        assetImageView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = assetImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12)
-        let centerY = assetImageView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        let height = assetImageView.heightAnchor.constraint(equalToConstant: 40)
-        let width = assetImageView.widthAnchor.constraint(equalToConstant: 40)
+        coinImageView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = coinImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12)
+        let centerY = coinImageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        let height = coinImageView.heightAnchor.constraint(equalToConstant: 40)
+        let width = coinImageView.widthAnchor.constraint(equalToConstant: 40)
         NSLayoutConstraint.activate([leading, centerY, height, width])
         
-        assetImageView.backgroundColor = .systemGray4
-        assetImageView.clipsToBounds = true
-        assetImageView.layer.cornerRadius = 40 / 2
+        coinImageView.backgroundColor = .systemGray4
+        coinImageView.clipsToBounds = true
+        coinImageView.layer.cornerRadius = 40 / 2
     }
     
     private func setupAssetTitleLabel() {

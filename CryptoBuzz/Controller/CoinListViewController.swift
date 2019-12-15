@@ -73,23 +73,10 @@ extension CoinListViewController: UITableViewDelegate, UITableViewDataSource {
         CoinRankingClient.fetchIcon(urlString: coin.iconUrl) { (image, error) in
             if error == nil {
                 DispatchQueue.main.async {
-                    cell.assetImageView.image = image
+                    cell.coinImageView.image = image
                 }
             }
         }
-        
-        
-//        CoinMarketClient.fetchCoinInfo(symbol: coin.symbol) { (logoUrl) in
-//            if let logoUrl = logoUrl {
-//                CoinMarketClient.fetchIcon(urlString: logoUrl) { (iconImage) in
-//                    DispatchQueue.main.async {
-//                        cell.assetImageView.image = iconImage
-//                    }
-//                }
-//            }
-//        }
-        
-        
         return cell
     }
     

@@ -61,7 +61,6 @@ class CoinRankingClient {
         guard let url = URL(string: urlString) else { return }
         
         if let imageFromCache = imageCache[urlString] {
-            print("image form the cache ..........")
             completion(imageFromCache, nil)
             return
         }
