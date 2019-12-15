@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import SVGKit
 
 class AssetCell: UITableViewCell {
     
-    let assetImageView = UIImageView()
+    let assetImageView = SVGKFastImageView(frame: .zero)
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
     let priceLabel = UILabel()
@@ -42,6 +43,7 @@ class AssetCell: UITableViewCell {
         NSLayoutConstraint.activate([leading, centerY, height, width])
         
         assetImageView.backgroundColor = .systemGray4
+        assetImageView.clipsToBounds = true
         assetImageView.layer.cornerRadius = 40 / 2
     }
     
@@ -50,12 +52,11 @@ class AssetCell: UITableViewCell {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         let top = titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12)
-        let leading = titleLabel.leadingAnchor.constraint(equalTo: assetImageView.trailingAnchor, constant: 12)
+        let leading = titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70)
         let trailing = titleLabel.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor)
         let height = titleLabel.heightAnchor.constraint(equalToConstant: 30)
         NSLayoutConstraint.activate([top, leading, trailing, height])
         
-        //titleLabel.backgroundColor = .systemGray4
         titleLabel.font = UIFont(name: "Avenir-Roman", size: 19)
     }
     
@@ -68,7 +69,6 @@ class AssetCell: UITableViewCell {
         let trailing = descriptionLabel.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor)
         NSLayoutConstraint.activate([top, leading, trailing])
         
-        //descriptionLabel.backgroundColor = .systemPink
         descriptionLabel.textColor = .lightGray
         descriptionLabel.font = UIFont(name: "Avenir-Roman", size: 13)
     }
@@ -85,7 +85,6 @@ class AssetCell: UITableViewCell {
         
         priceLabel.textAlignment = .right
         priceLabel.font = UIFont(name: "Avenir-Roman", size: 18)
-        //priceLabel.backgroundColor = .blue
     }
     
 }

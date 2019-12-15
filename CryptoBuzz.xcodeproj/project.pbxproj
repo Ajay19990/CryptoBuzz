@@ -22,9 +22,11 @@
 		2D87EA3023A291DE0014C114 /* AllCoins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D87EA2F23A291DE0014C114 /* AllCoins.swift */; };
 		2D87EA3223A2920B0014C114 /* AllCoinsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D87EA3123A2920B0014C114 /* AllCoinsData.swift */; };
 		2D87EA3423A292350014C114 /* AllCoinsStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D87EA3323A292350014C114 /* AllCoinsStats.swift */; };
+		5987534E0956F934D490CB0A /* Pods_CryptoBuzz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450000EDBDACA7FA2812A7AE /* Pods_CryptoBuzz.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C20E7F7EE795D4464AF90DC /* Pods-CryptoBuzz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoBuzz.release.xcconfig"; path = "Target Support Files/Pods-CryptoBuzz/Pods-CryptoBuzz.release.xcconfig"; sourceTree = "<group>"; };
 		2D29E64123A5BCDD00B4D937 /* CoinRankingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinRankingResponse.swift; sourceTree = "<group>"; };
 		2D5A810C23A1E7C0002A8010 /* CryptoBuzz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoBuzz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5A810F23A1E7C0002A8010 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +44,8 @@
 		2D87EA2F23A291DE0014C114 /* AllCoins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCoins.swift; sourceTree = "<group>"; };
 		2D87EA3123A2920B0014C114 /* AllCoinsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCoinsData.swift; sourceTree = "<group>"; };
 		2D87EA3323A292350014C114 /* AllCoinsStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCoinsStats.swift; sourceTree = "<group>"; };
+		450000EDBDACA7FA2812A7AE /* Pods_CryptoBuzz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoBuzz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0C49ED4002548E9C5F558AA /* Pods-CryptoBuzz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoBuzz.debug.xcconfig"; path = "Target Support Files/Pods-CryptoBuzz/Pods-CryptoBuzz.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5987534E0956F934D490CB0A /* Pods_CryptoBuzz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +65,8 @@
 			children = (
 				2D5A810E23A1E7C0002A8010 /* CryptoBuzz */,
 				2D5A810D23A1E7C0002A8010 /* Products */,
+				AAD338BA22E1806641D30857 /* Pods */,
+				49645D5FABA518354C404433 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -166,6 +173,24 @@
 			path = Coin;
 			sourceTree = "<group>";
 		};
+		49645D5FABA518354C404433 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				450000EDBDACA7FA2812A7AE /* Pods_CryptoBuzz.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAD338BA22E1806641D30857 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B0C49ED4002548E9C5F558AA /* Pods-CryptoBuzz.debug.xcconfig */,
+				1C20E7F7EE795D4464AF90DC /* Pods-CryptoBuzz.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -173,9 +198,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D5A812023A1E7C1002A8010 /* Build configuration list for PBXNativeTarget "CryptoBuzz" */;
 			buildPhases = (
+				B8700357DFF1DB0313DD1A7F /* [CP] Check Pods Manifest.lock */,
 				2D5A810823A1E7C0002A8010 /* Sources */,
 				2D5A810923A1E7C0002A8010 /* Frameworks */,
 				2D5A810A23A1E7C0002A8010 /* Resources */,
+				7B83B94F00E809C62550D8F7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -230,6 +257,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7B83B94F00E809C62550D8F7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CryptoBuzz/Pods-CryptoBuzz-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CryptoBuzz/Pods-CryptoBuzz-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CryptoBuzz/Pods-CryptoBuzz-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8700357DFF1DB0313DD1A7F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CryptoBuzz-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2D5A810823A1E7C0002A8010 /* Sources */ = {
@@ -382,6 +451,7 @@
 		};
 		2D5A812123A1E7C1002A8010 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0C49ED4002548E9C5F558AA /* Pods-CryptoBuzz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -401,6 +471,7 @@
 		};
 		2D5A812223A1E7C1002A8010 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C20E7F7EE795D4464AF90DC /* Pods-CryptoBuzz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -69,7 +69,15 @@ extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
             let formatted = String(format: "US$ %.2f", price)
             cell.priceLabel.text = formatted
         }
-        print(coin.iconUrl)
+        
+        CoinRankingClient.fetchIcon(urlString: coin.iconUrl) { (image, error) in
+            if error == nil {
+                DispatchQueue.main.async {
+                    cell.assetImageView.image = image
+                }
+            }
+        }
+        
         
 //        CoinMarketClient.fetchCoinInfo(symbol: coin.symbol) { (logoUrl) in
 //            if let logoUrl = logoUrl {

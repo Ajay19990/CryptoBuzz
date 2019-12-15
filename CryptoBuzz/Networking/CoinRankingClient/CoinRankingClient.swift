@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVGKit
 
 class CoinRankingClient {
     
@@ -56,23 +57,33 @@ class CoinRankingClient {
         task.resume()
     }
     
-    static func fetchIcon(urlString: String, completion: @escaping (UIImage?, Error?) -> Void) {
-        if let url = URL(string: urlString) {
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let error = error {
-                    print(error)
-                    completion(nil, error)
-                    return
-                }
-                guard let data = data else {
-                    print("no data")
-                    return
-                }
-                let image = UIImage(data: data)
-                completion(image, nil)
-            }
-            task.resume()
+    static func fetchIcon(urlString: String, completion: @escaping (SVGKImage?, Error?) -> Void) {
+        guard let url = URL(string: urlString) else { return }
+        
+        if let imageFromCache = imageCache[urlString] {
+            print("image form the cache ..........")
+            completion(imageFromCache, nil)
+            return
         }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            guard let data = data else {
+                completion(nil, error)
+                return
+            }
+            let image = SVGKImage(data: data)
+            imageCache[urlString] = image
+            completion(image, nil)
+        }
+        task.resume()
+        
     }
-    
 }
+    
+
+
+var imageCache = [String: SVGKImage]()
