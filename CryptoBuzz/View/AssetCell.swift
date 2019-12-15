@@ -11,8 +11,9 @@ import UIKit
 class AssetCell: UITableViewCell {
     
     let assetImageView = UIImageView()
-    let assetTitleLabel = UILabel()
-    let assetDescriptionLabel = UILabel()
+    let titleLabel = UILabel()
+    let descriptionLabel = UILabel()
+    let priceLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,6 +25,7 @@ class AssetCell: UITableViewCell {
     }
     
     private func setup() {
+        setupPriceLabel()
         setupAssetImageView()
         setupAssetTitleLabel()
         setupAssetDescriptionLabel()
@@ -44,31 +46,46 @@ class AssetCell: UITableViewCell {
     }
     
     private func setupAssetTitleLabel() {
-        addSubview(assetTitleLabel)
+        addSubview(titleLabel)
         
-        assetTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        let top = assetTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12)
-        let leading = assetTitleLabel.leadingAnchor.constraint(equalTo: assetImageView.trailingAnchor, constant: 12)
-        let trailing = assetTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
-        let height = assetTitleLabel.heightAnchor.constraint(equalToConstant: 30)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        let top = titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12)
+        let leading = titleLabel.leadingAnchor.constraint(equalTo: assetImageView.trailingAnchor, constant: 12)
+        let trailing = titleLabel.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor)
+        let height = titleLabel.heightAnchor.constraint(equalToConstant: 30)
         NSLayoutConstraint.activate([top, leading, trailing, height])
         
-        //assetTitleLabel.backgroundColor = .systemGray4
-        assetTitleLabel.font = UIFont(name: "Avenir-Roman", size: 18)
+        //titleLabel.backgroundColor = .systemGray4
+        titleLabel.font = UIFont(name: "Avenir-Roman", size: 19)
     }
     
     private func setupAssetDescriptionLabel() {
-        addSubview(assetDescriptionLabel)
+        addSubview(descriptionLabel)
         
-        assetDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        let top = assetDescriptionLabel.topAnchor.constraint(equalTo: assetTitleLabel.bottomAnchor)
-        let leading = assetDescriptionLabel.leadingAnchor.constraint(equalTo: assetTitleLabel.leadingAnchor)
-        let trailing = assetDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        let top = descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
+        let leading = descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor)
+        let trailing = descriptionLabel.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor)
         NSLayoutConstraint.activate([top, leading, trailing])
         
-        assetDescriptionLabel.textColor = .lightGray
-        assetDescriptionLabel.font = .systemFont(ofSize: 13)
-        assetDescriptionLabel.text = "BTC • Tradeable"
+        //descriptionLabel.backgroundColor = .systemPink
+        descriptionLabel.textColor = .lightGray
+        descriptionLabel.font = UIFont(name: "Avenir-Roman", size: 13)
+    }
+    
+    private func setupPriceLabel() {
+        addSubview(priceLabel)
+        
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        let top = priceLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12)
+        let trailing = priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14)
+        let height = priceLabel.heightAnchor.constraint(equalToConstant: 30)
+        let width = priceLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.35)
+        NSLayoutConstraint.activate([top, trailing, height, width])
+        
+        priceLabel.textAlignment = .right
+        priceLabel.font = UIFont(name: "Avenir-Roman", size: 18)
+        //priceLabel.backgroundColor = .blue
     }
     
 }

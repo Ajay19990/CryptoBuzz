@@ -11,11 +11,23 @@ import UIKit
 class AssetsViewController: UIViewController {
 
     let tableView = UITableView()
-    let currencies = ["Bitcoin", "Ethereum", "XRP", "Tether", "Bitcoin Cash", "Litecoin", "EOS", "Binance Coin"]
+    var coins = [Coin]()
     
     override func loadView() {
         super.loadView()
         setupView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        CoinRankingClient.fetchCoins { (coins, error) in
+            if let error = error {
+                self.presentAlert(title: "An error occured", message: error.localizedDescription)
+                return
+            }
+            self.coins = coins
+            self.tableView.reloadData()
+        }
     }
 
     private func setupView() {
@@ -44,13 +56,43 @@ class AssetsViewController: UIViewController {
 extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencies.count
+        return coins.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! AssetCell
-        cell.assetTitleLabel.text = currencies[indexPath.row]
+        let coin = coins[indexPath.row]
+        cell.titleLabel.text = coin.name
+        cell.descriptionLabel.text = coin.symbol
+        
+        if let price = Double(coin.price) {
+            let formatted = String(format: "US$ %.2f", price)
+            cell.priceLabel.text = formatted
+        }
+        print(coin.iconUrl)
+        
+//        CoinMarketClient.fetchCoinInfo(symbol: coin.symbol) { (logoUrl) in
+//            if let logoUrl = logoUrl {
+//                CoinMarketClient.fetchIcon(urlString: logoUrl) { (iconImage) in
+//                    DispatchQueue.main.async {
+//                        cell.assetImageView.image = iconImage
+//                    }
+//                }
+//            }
+//        }
+        
+        
         return cell
     }
     
+}
+
+
+extension UIViewController {
+    func presentAlert(title: String, message: String) {
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertVC.addAction(alertAction)
+        present(alertVC, animated: true)
+    }
 }
