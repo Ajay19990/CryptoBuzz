@@ -11,6 +11,10 @@ import UIKit
 class CoinListViewController: UIViewController {
 
     let tableView = UITableView()
+    var activityIndicatorContainer: UIView!
+    var activityIndicator: UIActivityIndicatorView!
+    var refreshButton: UIBarButtonItem!
+    
     var coins = [Coin]()
     
     override func loadView() {
@@ -18,21 +22,24 @@ class CoinListViewController: UIViewController {
         setupView()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        CoinRankingClient.fetchCoins { (coins, error) in
-            if let error = error {
-                self.presentAlert(title: "An error occured", message: error.localizedDescription)
-                return
-            }
-            self.coins = coins
-            self.tableView.reloadData()
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        CoinRankingClient.fetchCoins(completion: handleCoins(coins:error:))
     }
-
+    
     private func setupView() {
         view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Last 24 hours"
         setupTableView()
+        setupRefreshButton()
+        setupActivityIndicator()
+        showActivityIndicator(show: true)
+    }
+    
+    private func setupRefreshButton() {
+        refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshTapped))
+        self.navigationItem.rightBarButtonItem = refreshButton
     }
     
     private func setupTableView() {
@@ -50,6 +57,61 @@ class CoinListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    private func setupActivityIndicator() {
+        
+        activityIndicatorContainer = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        activityIndicatorContainer.center.x = view.center.x
+        activityIndicatorContainer.center.y = view.center.y
+        activityIndicatorContainer.backgroundColor = UIColor.black
+        activityIndicatorContainer.alpha = 0.8
+        activityIndicatorContainer.layer.cornerRadius = 10
+          
+        // Configure the activity indicator
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorContainer.addSubview(activityIndicator)
+        view.addSubview(activityIndicatorContainer)
+            
+        // Constraints
+        activityIndicator.centerXAnchor.constraint(equalTo: activityIndicatorContainer.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: activityIndicatorContainer.centerYAnchor).isActive = true
+    }
+    
+    private func showActivityIndicator(show: Bool) {
+      if show {
+        DispatchQueue.main.async{
+            self.tableView.allowsSelection = false
+            self.activityIndicator.startAnimating()
+            self.refreshButton.isEnabled = false
+        }
+      } else {
+            DispatchQueue.main.async{
+                self.tableView.allowsSelection = true
+                self.refreshButton.isEnabled = true
+                self.activityIndicator.stopAnimating()
+                self.activityIndicatorContainer.removeFromSuperview()
+            }
+        }
+    }
+    
+    @objc func refreshTapped() {
+        setupActivityIndicator()
+        showActivityIndicator(show: true)
+        CoinRankingClient.fetchCoins(completion: handleCoins(coins:error:))
+    }
+    
+    private func handleCoins(coins: [Coin], error: Error?) {
+        self.showActivityIndicator(show: false)
+        if let error = error {
+            self.presentAlert(title: "An error occured", message: error.localizedDescription)
+            return
+        }
+        self.coins = coins
+        self.tableView.reloadData()
+    }
 
 }
 
@@ -63,7 +125,16 @@ extension CoinListViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! CoinCell
         let coin = coins[indexPath.row]
         cell.titleLabel.text = coin.name
-        cell.descriptionLabel.text = coin.symbol
+        cell.symbolLabel.text = coin.symbol
+        cell.changeLabel.text = "\(abs(coin.change))"
+        
+        if coin.change < 0 {
+            cell.arrowImageView.image = UIImage(named: "down.png")
+            cell.changeLabel.textColor = #colorLiteral(red: 0.9607843137, green: 0.3725490196, blue: 0.4, alpha: 1)
+        } else if coin.change > 0 {
+            cell.changeLabel.textColor = #colorLiteral(red: 0.2352941176, green: 0.6784313725, blue: 0.262745098, alpha: 1)
+            cell.arrowImageView.image = UIImage(named: "up.png")
+        }
         
         if let price = Double(coin.price) {
             let formatted = String(format: "US$ %.2f", price)
@@ -78,6 +149,12 @@ extension CoinListViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailViewController = DetailViewController()
+        detailViewController.coin = coins[indexPath.row]
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
     
 }

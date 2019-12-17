@@ -18,8 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let assetsVC = CoinListViewController()
-        window?.rootViewController = assetsVC
+        
+        let coinsVC = CoinListViewController()
+        let navController = UINavigationController(rootViewController: coinsVC)
+        window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
 

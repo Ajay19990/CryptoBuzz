@@ -13,8 +13,10 @@ class CoinCell: UITableViewCell {
     
     let coinImageView = SVGKFastImageView(frame: .zero)
     let titleLabel = UILabel()
-    let descriptionLabel = UILabel()
+    let symbolLabel = UILabel()
     let priceLabel = UILabel()
+    let arrowImageView = UIImageView()
+    let changeLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,6 +32,8 @@ class CoinCell: UITableViewCell {
         setupAssetImageView()
         setupAssetTitleLabel()
         setupAssetDescriptionLabel()
+        setupArrowImageView()
+        setupChangeLabel()
     }
     
     private func setupAssetImageView() {
@@ -61,30 +65,52 @@ class CoinCell: UITableViewCell {
     }
     
     private func setupAssetDescriptionLabel() {
-        addSubview(descriptionLabel)
+        addSubview(symbolLabel)
         
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        let top = descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
-        let leading = descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor)
-        let trailing = descriptionLabel.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor)
+        symbolLabel.translatesAutoresizingMaskIntoConstraints = false
+        let top = symbolLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
+        let leading = symbolLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor)
+        let trailing = symbolLabel.widthAnchor.constraint(equalToConstant: 50)
         NSLayoutConstraint.activate([top, leading, trailing])
         
-        descriptionLabel.textColor = .lightGray
-        descriptionLabel.font = UIFont(name: "Avenir-Roman", size: 13)
+        symbolLabel.textColor = .lightGray
+        symbolLabel.font = UIFont(name: "Avenir-Roman", size: 13)
     }
     
     private func setupPriceLabel() {
         addSubview(priceLabel)
         
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        let top = priceLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12)
+        let centerY = priceLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         let trailing = priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14)
         let height = priceLabel.heightAnchor.constraint(equalToConstant: 30)
         let width = priceLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.35)
-        NSLayoutConstraint.activate([top, trailing, height, width])
+        NSLayoutConstraint.activate([centerY, trailing, height, width])
         
         priceLabel.textAlignment = .right
         priceLabel.font = UIFont(name: "Avenir-Roman", size: 18)
+    }
+    
+    private func setupArrowImageView() {
+        addSubview(arrowImageView)
+        
+        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        let top = arrowImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
+        let leading = arrowImageView.leadingAnchor.constraint(equalTo: symbolLabel.trailingAnchor)
+        let height = arrowImageView.heightAnchor.constraint(equalToConstant: 16)
+        let width = arrowImageView.widthAnchor.constraint(equalToConstant: 16)
+        NSLayoutConstraint.activate([top, leading, height, width])
+    }
+    
+    private func setupChangeLabel() {
+        addSubview(changeLabel)
+        
+        changeLabel.translatesAutoresizingMaskIntoConstraints = false
+        let top = changeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
+        let leading = changeLabel.leadingAnchor.constraint(equalTo: arrowImageView.trailingAnchor, constant: 3)
+        let width = changeLabel.widthAnchor.constraint(equalToConstant: 50)
+        NSLayoutConstraint.activate([top, leading, width])
+        changeLabel.font = UIFont(name: "Avenir-Roman", size: 13)
     }
     
 }

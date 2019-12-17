@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D29E64223A5BCDD00B4D937 /* CoinRankingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D29E64123A5BCDD00B4D937 /* CoinRankingResponse.swift */; };
+		2D2B057D23A88D7600E28981 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2B057C23A88D7600E28981 /* DetailViewController.swift */; };
 		2D5A811023A1E7C0002A8010 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A810F23A1E7C0002A8010 /* AppDelegate.swift */; };
 		2D5A811223A1E7C0002A8010 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A811123A1E7C0002A8010 /* SceneDelegate.swift */; };
 		2D5A811923A1E7C1002A8010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A811823A1E7C1002A8010 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		1C20E7F7EE795D4464AF90DC /* Pods-CryptoBuzz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoBuzz.release.xcconfig"; path = "Target Support Files/Pods-CryptoBuzz/Pods-CryptoBuzz.release.xcconfig"; sourceTree = "<group>"; };
 		2D29E64123A5BCDD00B4D937 /* CoinRankingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinRankingResponse.swift; sourceTree = "<group>"; };
+		2D2B057C23A88D7600E28981 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2D5A810C23A1E7C0002A8010 /* CryptoBuzz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoBuzz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5A810F23A1E7C0002A8010 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D5A811123A1E7C0002A8010 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				2D98642C23A6372500790B8E /* CoinListViewController.swift */,
+				2D2B057C23A88D7600E28981 /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				2D87EA3223A2920B0014C114 /* AllCoinsData.swift in Sources */,
 				2D87EA2A23A28F580014C114 /* CoinSocials.swift in Sources */,
 				2D29E64223A5BCDD00B4D937 /* CoinRankingResponse.swift in Sources */,
+				2D2B057D23A88D7600E28981 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
