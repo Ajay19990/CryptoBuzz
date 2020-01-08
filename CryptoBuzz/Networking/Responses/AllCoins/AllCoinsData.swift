@@ -9,6 +9,5 @@
 import Foundation
 
 struct AllCoinsData: Codable {
-    let stats: AllCoinsStats
     let coins: [Coin]
 }

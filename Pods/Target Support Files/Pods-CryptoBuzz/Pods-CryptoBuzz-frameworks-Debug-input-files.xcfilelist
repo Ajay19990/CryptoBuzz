@@ -1,3 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-CryptoBuzz/Pods-CryptoBuzz-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework
 ${BUILT_PRODUCTS_DIR}/SVGKit/SVGKit.framework
+${BUILT_PRODUCTS_DIR}/SwiftChart/SwiftChart.framework

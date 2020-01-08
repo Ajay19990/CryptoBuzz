@@ -11,53 +11,45 @@ import SVGKit
 
 class CoinRankingClient {
     
-    static let host = "api.coinranking.com"
-    static let scheme = "https"
+    static let base = "https://api.coinranking.com"
     
-    static var allCoinsUrl: URL {
-        var components = URLComponents()
-        components.host = host
-        components.path = "/v1/public/coins"
-        components.scheme = scheme
+    class func fetchCoins(completion: @escaping ([Coin], ErrorMessage?) -> Void) {
+        let endpoint = base + "/v1/public/coins?limit=20"
+        guard let url = URL(string: endpoint) else {
+            completion([], .invalidRequest)
+            return
+        }
         
-        components.queryItems = [URLQueryItem]()
-        components.queryItems?.append(URLQueryItem(name: "limit", value: "20"))
-        return components.url!
-    }
-    
-    static func fetchCoins(completion: @escaping ([Coin], Error?) -> Void) {
-        let task = URLSession.shared.dataTask(with: allCoinsUrl) { (data, response, error) in
+        let urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 1)
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            if error != nil {
+                completion([], .unableToComplete)
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completion([], .invalidResponse)
+                return
+            }
             
             guard let data = data else {
-                DispatchQueue.main.async {
-                    completion([], error)
-                }
+                completion([], .invalidData)
                 return
             }
             
             do {
                 let responseObject = try JSONDecoder().decode(AllCoins.self, from: data)
-                DispatchQueue.main.async {
-                    completion(responseObject.data.coins, nil)
-                }
+                let coins = responseObject.data.coins
+                completion(coins, nil)
             } catch {
-                do {
-                    let errorResponse = try JSONDecoder().decode(CoinRankingResponse.self, from: data) as Error
-                    DispatchQueue.main.async {
-                        completion([], errorResponse)
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion([], error)
-                    }
-                }
+                completion([], .invalidResponse)
             }
-            
         }
         task.resume()
     }
     
-    static func fetchIcon(urlString: String, completion: @escaping (SVGKImage?, Error?) -> Void) {
+    class func fetchIcon(urlString: String, completion: @escaping (SVGKImage?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
         
         if let imageFromCache = imageCache[urlString] {
@@ -79,7 +71,50 @@ class CoinRankingClient {
             completion(image, nil)
         }
         task.resume()
+    }
+    
+    class func getCoinHistory(coinId: Int, timeFrame: String, completion: @escaping ([History], String?) -> Void) {
+        let urlString = "https://api.coinranking.com/v1/public/coin/\(coinId)/history/\(timeFrame)"
+        guard let url = URL(string: urlString) else {
+            completion([], ErrorMessage.invalidRequest.rawValue)
+            return
+        }
         
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+    
+            if error != nil {
+                completion([], ErrorMessage.unableToComplete.rawValue)
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completion([], ErrorMessage.invalidResponse.rawValue)
+                return
+            }
+            
+            guard let data = data else {
+                completion([], ErrorMessage.invalidData.rawValue)
+                return
+            }
+            
+            do {
+                let responseObject = try JSONDecoder().decode(CoinHistoryResponse.self, from: data)
+                let history = responseObject.data.history
+                completion(history, nil)
+            } catch {
+                do {
+                    let errorResposnse = try JSONDecoder().decode(CoinRankingResponse.self, from: data) as Error
+                    DispatchQueue.main.async {
+                        completion([], errorResposnse.localizedDescription)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion([], error.localizedDescription)
+                    }
+                }
+            }
+        }
+        task.resume()
     }
 }
     

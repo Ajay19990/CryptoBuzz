@@ -24,7 +24,7 @@ class CoinListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        CoinRankingClient.fetchCoins(completion: handleCoins(coins:error:))
+        CoinRankingClient.fetchCoins(completion: handleCoins)
     }
     
     private func setupView() {
@@ -84,6 +84,7 @@ class CoinListViewController: UIViewController {
       if show {
         DispatchQueue.main.async{
             self.tableView.allowsSelection = false
+            self.tableView.isUserInteractionEnabled = false
             self.activityIndicator.startAnimating()
             self.refreshButton.isEnabled = false
         }
@@ -91,6 +92,7 @@ class CoinListViewController: UIViewController {
             DispatchQueue.main.async{
                 self.tableView.allowsSelection = true
                 self.refreshButton.isEnabled = true
+                self.tableView.isUserInteractionEnabled = true
                 self.activityIndicator.stopAnimating()
                 self.activityIndicatorContainer.removeFromSuperview()
             }
@@ -98,19 +100,23 @@ class CoinListViewController: UIViewController {
     }
     
     @objc func refreshTapped() {
+        self.coins = []
         setupActivityIndicator()
         showActivityIndicator(show: true)
-        CoinRankingClient.fetchCoins(completion: handleCoins(coins:error:))
+        CoinRankingClient.fetchCoins(completion: handleCoins)
     }
     
-    private func handleCoins(coins: [Coin], error: Error?) {
+    private func handleCoins(coins: [Coin], error: ErrorMessage?) {
         self.showActivityIndicator(show: false)
-        if let error = error {
-            self.presentAlert(title: "An error occured", message: error.localizedDescription)
-            return
+        if (error != nil) {
+            DispatchQueue.main.async {
+                self.presentAlertOnMainThread(title: "An error occured", message: error!.rawValue)
+            }
         }
         self.coins = coins
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
 }
@@ -123,10 +129,11 @@ extension CoinListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! CoinCell
+        
         let coin = coins[indexPath.row]
         cell.titleLabel.text = coin.name
         cell.symbolLabel.text = coin.symbol
-        cell.changeLabel.text = "\(abs(coin.change))"
+        cell.changeLabel.text = "\(abs(coin.change))%"
         
         if coin.change < 0 {
             cell.arrowImageView.image = UIImage(named: "down.png")
@@ -154,17 +161,6 @@ extension CoinListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
         detailViewController.coin = coins[indexPath.row]
-        navigationController?.pushViewController(detailViewController, animated: true)
-    }
-    
-}
-
-
-extension UIViewController {
-    func presentAlert(title: String, message: String) {
-        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertVC.addAction(alertAction)
-        present(alertVC, animated: true)
+        self.present(detailViewController, animated: true, completion: tableView.reloadData)
     }
 }

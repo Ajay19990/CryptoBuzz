@@ -4,13 +4,16 @@ PODS:
   - CocoaLumberjack/Core (3.6.0)
   - SVGKit (2.1.0):
     - CocoaLumberjack (~> 3.0)
+  - SwiftChart (1.0.1)
 
 DEPENDENCIES:
   - SVGKit (from `https://github.com/SVGKit/SVGKit.git`, branch `3.x`)
+  - SwiftChart
 
 SPEC REPOS:
   trunk:
     - CocoaLumberjack
+    - SwiftChart
 
 EXTERNAL SOURCES:
   SVGKit:
@@ -25,7 +28,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   SVGKit: 8a2fc74258bdb2abb54d3b65f3dd68b0277a9c4d
+  SwiftChart: ba767a678d568a5ee22d419e146a0582865e1aff
 
-PODFILE CHECKSUM: 09fa57f90345e11f3c78f61cfc6065020072db70
+PODFILE CHECKSUM: 28a045fb72ba43b299aafba90718ab2b97608112
 
 COCOAPODS: 1.8.4

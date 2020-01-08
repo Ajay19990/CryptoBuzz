@@ -7,4 +7,5 @@ target 'CryptoBuzz' do
 
   # Pods for CryptoBuzz
 pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
+pod "SwiftChart"
 end
