@@ -1,4 +1,4 @@
-# Reminder
+# CryptoBuzz
 
 The app utilises CoinRanking API and shows users the details about cryptocurrencies in the market.
 
