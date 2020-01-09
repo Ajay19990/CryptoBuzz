@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
     let marketCapImageView = UIImageView(image: UIImage(named: "bar-chart"))
     let volumeImageView = UIImageView(image: UIImage(named: "bars"))
     let allTimeHighImageView = UIImageView(image: UIImage(named: "allTimeHigh"))
+    let noOfMarketsImageView = UIImageView(image: UIImage(named: "markets"))
     var imageStackView: UIStackView!
     var marketTitleStackView: UIStackView!
     var marketValueStackView: UIStackView!
@@ -26,12 +27,16 @@ class DetailViewController: UIViewController {
     let marketCapTitleLabel = MarketStatusTitleLabel(title: "Market Capture", textColor: .label, textAlignment: .left)
     let volumeTitleLabel = MarketStatusTitleLabel(title: "Volume", textColor: .label, textAlignment: .left)
     let allTimeHighTitleLabel = MarketStatusTitleLabel(title: "All time high", textColor: .label, textAlignment: .left)
-    
-    let emptyLabel = UILabel()
+    let noOfmarketTitleLabel = MarketStatusTitleLabel(title: "No of markets", textColor: .label, textAlignment: .left)
     
     override func loadView() {
         super.loadView()
         setup()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        CoinRankingClient.getCoinHistory(coinId: coin.id, timeFrame: "24h", completion: handleHistory)
     }
 
     private func handleHistory(history: [History], error: String?) {
@@ -42,7 +47,6 @@ class DetailViewController: UIViewController {
             return
         }
         DispatchQueue.main.async{
-            self.emptyLabel.removeFromSuperview()
             self.chart.removeAllSeries()
             let series = self.makeSeries(historyArray: history)
             self.chart.add(series)
@@ -70,7 +74,7 @@ class DetailViewController: UIViewController {
         setupPriceLabel()
         setupChartView()
         setupTimeFrameStackView()
-        setupMarketStatusStackView()
+        setupMarketImageStackView()
         setupMarketTitleStackView()
         setupMarketValueStackView()
     }
@@ -143,8 +147,6 @@ class DetailViewController: UIViewController {
         chart.showXLabelsAndGrid = false
         chart.showYLabelsAndGrid = false
         chart.isUserInteractionEnabled = false
-        
-        CoinRankingClient.getCoinHistory(coinId: coin.id, timeFrame: "24h", completion: handleHistory)
     }
     
     private func setupTimeFrameStackView() {
@@ -175,8 +177,8 @@ class DetailViewController: UIViewController {
         ])
     }
     
-    private func setupMarketStatusStackView() {
-        imageStackView = UIStackView(arrangedSubviews: [marketCapImageView, volumeImageView, allTimeHighImageView])
+    private func setupMarketImageStackView() {
+        imageStackView = UIStackView(arrangedSubviews: [marketCapImageView, volumeImageView, allTimeHighImageView, noOfMarketsImageView])
         view.addSubview(imageStackView)
         imageStackView.translatesAutoresizingMaskIntoConstraints = false
         imageStackView.axis = .vertical
@@ -184,15 +186,15 @@ class DetailViewController: UIViewController {
         imageStackView.spacing = 10
         
         NSLayoutConstraint.activate([
-            imageStackView.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 58),
+            imageStackView.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 80),
             imageStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             imageStackView.widthAnchor.constraint(equalToConstant: 32),
-            imageStackView.heightAnchor.constraint(equalToConstant: 116)
+            imageStackView.heightAnchor.constraint(equalToConstant: 158)
         ])
     }
     
     private func setupMarketTitleStackView() {
-        marketTitleStackView = UIStackView(arrangedSubviews: [marketCapTitleLabel, volumeTitleLabel, allTimeHighTitleLabel])
+        marketTitleStackView = UIStackView(arrangedSubviews: [marketCapTitleLabel, volumeTitleLabel, allTimeHighTitleLabel, noOfmarketTitleLabel])
         view.addSubview(marketTitleStackView)
         marketTitleStackView.translatesAutoresizingMaskIntoConstraints = false
         marketTitleStackView.axis = .vertical
@@ -200,10 +202,10 @@ class DetailViewController: UIViewController {
         marketTitleStackView.spacing = 10
         
         NSLayoutConstraint.activate([
-            marketTitleStackView.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 58),
-            marketTitleStackView.leadingAnchor.constraint(equalTo: imageStackView.trailingAnchor, constant: 12),
+            marketTitleStackView.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 80),
+            marketTitleStackView.leadingAnchor.constraint(equalTo: imageStackView.trailingAnchor, constant: 15),
             marketTitleStackView.widthAnchor.constraint(equalToConstant: 120),
-            marketTitleStackView.heightAnchor.constraint(equalToConstant: 116)
+            marketTitleStackView.heightAnchor.constraint(equalToConstant: 158)
         ])
     }
     
@@ -221,7 +223,15 @@ class DetailViewController: UIViewController {
         }
         let allTimeHighLabel = MarketStatusTitleLabel(title: formatted, textColor: .systemGray2, textAlignment: .right)
         
-        marketValueStackView = UIStackView(arrangedSubviews: [marketCapLabel, volumeLabel, allTimeHighLabel])
+        let numberOfMarkets: String!
+        if let coin = coin {
+            numberOfMarkets = "\(coin.numberOfMarkets)"
+        } else {
+            numberOfMarkets = "Data unavailable"
+        }
+        let noOfMarketLabel = MarketStatusTitleLabel(title: numberOfMarkets, textColor: .systemGray2, textAlignment: .right)
+        
+        marketValueStackView = UIStackView(arrangedSubviews: [marketCapLabel, volumeLabel, allTimeHighLabel, noOfMarketLabel])
         view.addSubview(marketValueStackView)
         marketValueStackView.translatesAutoresizingMaskIntoConstraints = false
         marketValueStackView.axis = .vertical
@@ -229,10 +239,10 @@ class DetailViewController: UIViewController {
         marketValueStackView.spacing = 10
         
         NSLayoutConstraint.activate([
-            marketValueStackView.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 58),
+            marketValueStackView.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 80),
             marketValueStackView.leadingAnchor.constraint(equalTo: marketTitleStackView.trailingAnchor),
             marketValueStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            marketValueStackView.heightAnchor.constraint(equalToConstant: 116)
+            marketValueStackView.heightAnchor.constraint(equalToConstant: 158)
         ])
     }
     
@@ -267,11 +277,5 @@ class DetailViewController: UIViewController {
             return "\(value)"
 
         }
-    }
-}
-
-extension Double {
-    func truncate(places: Int) -> Double {
-        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
     }
 }

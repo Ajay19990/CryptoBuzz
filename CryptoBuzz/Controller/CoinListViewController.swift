@@ -63,7 +63,7 @@ class CoinListViewController: UIViewController {
         activityIndicatorContainer = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         activityIndicatorContainer.center.x = view.center.x
         activityIndicatorContainer.center.y = view.center.y
-        activityIndicatorContainer.backgroundColor = UIColor.black
+        activityIndicatorContainer.backgroundColor = .systemGray5
         activityIndicatorContainer.alpha = 0.8
         activityIndicatorContainer.layer.cornerRadius = 10
           
