@@ -28,7 +28,7 @@ The app contains 2 View Controllers :
 https://coinranking.com/page/cryptocurrency-api
 
 ## Screenshots
-<img src = "Screenshots/ListDark.PNG" width = "180">  &nbsp; &nbsp; <img src = "Screenshots/DetailDark.PNG" width = "180"> &nbsp; &nbsp; <img src = "Screenshots/ListWhite.PNG" width = "180"> &nbsp; &nbsp; <img src = "Screenshots/DetailWhite.PNG" width = "180">
+<img src = "Screenshots/ListDark.jpg" width = "180">  &nbsp; &nbsp; <img src = "Screenshots/DetailDark.jpg" width = "180"> &nbsp; &nbsp; <img src = "Screenshots/ListWhite.jpg" width = "180"> &nbsp; &nbsp; <img src = "Screenshots/DetailWhite.jpg" width = "180">
 
 ## License
 This code is free and open source.
