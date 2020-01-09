@@ -20,9 +20,9 @@ class CoinRankingClient {
             return
         }
         
-        let urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 1)
+        //let urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 1)
         
-        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil {
                 completion([], .unableToComplete)
                 return
@@ -80,7 +80,8 @@ class CoinRankingClient {
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 0.5)
+        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
     
             if error != nil {
                 completion([], ErrorMessage.unableToComplete.rawValue)

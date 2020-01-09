@@ -27,19 +27,22 @@ class DetailViewController: UIViewController {
     let volumeTitleLabel = MarketStatusTitleLabel(title: "Volume", textColor: .label, textAlignment: .left)
     let allTimeHighTitleLabel = MarketStatusTitleLabel(title: "All time high", textColor: .label, textAlignment: .left)
     
+    let emptyLabel = UILabel()
+    
     override func loadView() {
         super.loadView()
         setup()
     }
 
     private func handleHistory(history: [History], error: String?) {
-        if let error = error {
-            DispatchQueue.main.async{
-                self.presentAlertOnMainThread(title: "An error occured", message: error)
+        if (error != nil) {
+            DispatchQueue.main.async {
+                self.presentAlertOnMainThread(title: "An error occured", message: error!)
             }
             return
         }
         DispatchQueue.main.async{
+            self.emptyLabel.removeFromSuperview()
             self.chart.removeAllSeries()
             let series = self.makeSeries(historyArray: history)
             self.chart.add(series)
@@ -211,8 +214,12 @@ class DetailViewController: UIViewController {
         let volume = formatNumber(coin.volume)
         let volumeLabel = MarketStatusTitleLabel(title: volume, textColor: .systemGray2, textAlignment: .right)
         
-        let allTimeHigh = coin.allTimeHigh.price
-        let allTimeHighLabel = MarketStatusTitleLabel(title: allTimeHigh, textColor: .systemGray2, textAlignment: .right)
+        let allTimeHighPrice = Double(coin.allTimeHigh.price)
+        var formatted = String(format: "US$ %.2f", allTimeHighPrice ?? "Data not available")
+        if formatted == "US$ 0.00" {
+            formatted = "Data Unavailable"
+        }
+        let allTimeHighLabel = MarketStatusTitleLabel(title: formatted, textColor: .systemGray2, textAlignment: .right)
         
         marketValueStackView = UIStackView(arrangedSubviews: [marketCapLabel, volumeLabel, allTimeHighLabel])
         view.addSubview(marketValueStackView)

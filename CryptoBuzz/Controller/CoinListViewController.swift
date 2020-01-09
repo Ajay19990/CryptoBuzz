@@ -124,6 +124,11 @@ class CoinListViewController: UIViewController {
 extension CoinListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if coins.count == 0 {
+            tableView.setEmptyView(title: "Data unavailable", message: "Unable to get the requested data.")
+        } else {
+            tableView.restore()
+        }
         return coins.count
     }
     
