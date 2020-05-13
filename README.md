@@ -9,7 +9,7 @@ The app utilises CoinRanking API and shows users the details about cryptocurrenc
 3. Adapts to dark or light mode based on the system.
 
 ## Screenshots
-<img src = "Screenshots/ListBlack.jpg" width = "180">  &nbsp; &nbsp; <img src = "Screenshots/DetailBlack.jpg" width = "180"> &nbsp; &nbsp; <img src = "Screenshots/ListWhite.jpg" width = "180"> &nbsp; &nbsp; <img src = "Screenshots/DetailWhite.jpg" width = "180">
+<img src = "Screenshots/ListWhite.jpg" width = "180">  &nbsp; &nbsp; <img src = "Screenshots/DetailWhite.jpg" width = "180"> &nbsp; &nbsp; <img src = "Screenshots/DetailBlack.jpg" width = "180"> 
 
 ## How to build/compile
 1. Open "CryptoBuzz.xcworkspace" file.
